@@ -30,10 +30,6 @@ Veja o arquivo Makefile para verificar a função de cada comando.
 ## Executando Migrações
 Antes de executar migrações, certifique-se de que seu banco de dados PostgreSQL está configurado e acessível. Ajuste a string de conexão no comando conforme necessário.
 ```
-migrate -path src/database/migrations -database "postgresql://root:root@localhost:5432/tindog?sslmode=disable" -verbose up
-```
-Ou apenas
-```
 make migrateup
 ```
 
