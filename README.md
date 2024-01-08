@@ -23,7 +23,7 @@ Para executar o banco de dados, utilize os seguintes comando:
 make up
 ```
 ```
-make setup-db
+make createdb
 ```
 Veja o arquivo Makefile para verificar a função de cada comando.
 
