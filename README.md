@@ -53,3 +53,17 @@ Para iniciar o projeto, utilize o seguinte comando:
 $ yarn dev
 ```
 
+## Executando Migrações
+Antes de executar migrações, certifique-se de que seu banco de dados PostgreSQL está configurado e acessível. Ajuste a string de conexão no comando conforme necessário.
+```
+migrate -path src/database/migrations -database "postgresql://root:root@localhost:5432/tindog?sslmode=disable" -verbose up
+```
+Este comando aplicará quaisquer migrações pendentes e atualizará o esquema do banco de dados.
+
+## Criando Nova Migração
+Para criar uma nova migração, utilize o seguinte comando. Isso criará um arquivo SQL na pasta de migrações com o nome fornecido.
+
+```
+migrate create -ext sql -dir src/database/migrations add_user_table
+```
+Ajuste o nome add_user_table conforme necessário para refletir o propósito da migração.
