@@ -9,7 +9,7 @@ stop:
 setup-db:
 	docker exec -it tindog-backend-db-1 bash -c "psql -U root -c 'CREATE DATABASE tindog;'"
 
-create-user-db:
+create-users-table:
 	docker exec -i tindog-backend-db-1 psql -U root -c "CREATE TABLE IF NOT EXISTS users ( \
 		id BIGSERIAL PRIMARY KEY, \
 		name VARCHAR NOT NULL, \

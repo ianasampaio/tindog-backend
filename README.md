@@ -4,8 +4,9 @@
 
 Certifique-se de ter os seguintes requisitos instalados antes de prosseguir:
 
-#### 1. Npm
-#### 2. Yarn
+#### 1. Docker e Docker Compose
+#### 2. Npm
+#### 3. Yarn
 Instale globalmente via Npm:
 
 ```
@@ -15,14 +16,21 @@ Verifique a instalação do Yarn:
 ```
 $ yarn -v
 ```
-#### 3. Docker e Docker Compose
 
 
 ## Configuração do Banco de Dados
-Para executar o banco de dados, utilize o Docker Compose com o seguinte comando:
+Para executar o banco de dados, utilize os seguintes comando:
 ```
-$ docker-compose up -d
+$ make up
 ```
+```
+$ make setup-db
+```
+```
+$ make create-users-table
+```
+
+Veja o arquivo Makefile para verificar a função de cada comando.
 
 ## Atualização Eslint
 A configuração de "eslint.autoFixOnSave" no Visual Studio Code não está mais funcionando para realizar correções automáticas no código. Em vez disso, utilize a seguinte configuração no arquivo settings.json do VSCode:
