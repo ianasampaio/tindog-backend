@@ -5,8 +5,9 @@
 Certifique-se de ter os seguintes requisitos instalados antes de prosseguir:
 
 #### 1. Docker e Docker Compose
-#### 2. Npm
-#### 3. Yarn
+#### 2. [Migrate](https://github.com/golang-migrate/migrate/tree/master/cmd/migrate)
+#### 3. Npm
+#### 4. Yarn
 Instale globalmente via Npm:
 
 ```
