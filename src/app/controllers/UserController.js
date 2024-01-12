@@ -9,12 +9,41 @@ class UserController {
     response.json(users);
   }
 
-  show() {
+  async show(request, response) {
+		const { id } = request.params;
+		const user = await UsersRepository.findById(id);
 
+		if(!user) {
+      return response.status(404).json({ error: 'User not found' });
+    }
+
+    response.json(user);
   }
 
-  store() {
+  async store(request, response) {
+    const {name, email, password} = request.body;
 
+    if (!name) {
+      return response.status(400).json({error: 'Name is required'});
+    }
+
+		if (!email) {
+      return response.status(400).json({error: 'Email is required'});
+    }
+
+		if (!password) {
+      return response.status(400).json({error: 'Password is required'});
+    }
+
+    const UserExists = await UsersRepository.findByEmail(email);
+
+    if (UserExists){
+      return response.status(400).json({error: 'This e-mail is already in use'});
+    }
+
+    const user = await UsersRepository.create(name, email, password);
+
+    response.json(user);
   }
 
   update() {
