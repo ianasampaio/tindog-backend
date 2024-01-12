@@ -52,10 +52,13 @@ class AuthenticationController {
 			return response.status(400).json({error: 'Invalid Password'});
 		}
 
-		const secret = process.env.SECRET;
+		const accessToken = process.env.ACCESS_TOKEN_SECRET;
+		const expiresIn = process.env.EXPIRE;
 		const token = jwt.sign({
 			id: user.id,
-		}, secret);
+		}, accessToken,
+		{expiresIn: expiresIn}
+		);
 
 		return response.status(200).json({msg: 'Authentication success', token});
 	}
