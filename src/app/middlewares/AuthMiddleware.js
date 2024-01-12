@@ -8,10 +8,9 @@ function authenticate(request, response, next) {
 		return response.status(401).json({ error: 'Not authorized' });
 	}
 
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
+	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, data) => {
 		if(error) return response.status(403).json({ error: 'Not authorized' });
-		request.user = user
-		// console.log('user', user);
+		request.userId = data.id;
 		next();
 	});
 

@@ -29,6 +29,7 @@ class AuthenticationController {
 		const passwordHash = await bcrypt.hash(password, 12);
 
 		const user = await UsersRepository.create(name, email, passwordHash, state, city);
+		delete user.password;
 		response.json(user);
 	}
 
@@ -44,12 +45,12 @@ class AuthenticationController {
 
 		const user = await UsersRepository.findByEmail(email);
 		if (!user){
-			return response.status(400).json({error: 'User not found'});
+			return response.status(400).json({error: 'Invalid credentials'});
 		}
 
 		const checkPassword = await bcrypt.compare(password, user.password);
 		if (!checkPassword){
-			return response.status(400).json({error: 'Invalid Password'});
+			return response.status(400).json({error: 'Invalid credentials'});
 		}
 
 		const accessToken = process.env.ACCESS_TOKEN_SECRET;
@@ -57,8 +58,9 @@ class AuthenticationController {
 		const token = jwt.sign({
 			id: user.id,
 		}, accessToken,
-		{expiresIn: expiresIn}
-		);
+		{
+			expiresIn: expiresIn,
+		});
 
 		return response.status(200).json({msg: 'Authentication success', token});
 	}
