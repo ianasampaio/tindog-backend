@@ -31,14 +31,14 @@ class UsersRepository {
   }
 
   async update(id, {
-    name, email, password, state, city,
+    name, email, passwordHash, state, city,
   }) {
     const [row] = await db.query(`
       UPDATE users
       SET name = $2, email = $3, password = $4, state = $5, city = $6
       WHERE id = $1
       RETURNING *
-    `, [id, name, email, password, state, city]);
+    `, [id, name, email, passwordHash, state, city]);
     return row;
   }
 

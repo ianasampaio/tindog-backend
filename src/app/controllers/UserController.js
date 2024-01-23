@@ -1,6 +1,6 @@
 const { request, response } = require('express');
 const UsersRepository = require('../repositories/UsersRepository');
-
+const bcrypt = require('bcrypt');
 class UserController {
   async index(request, response) {
     const users = await UsersRepository.findAll();
@@ -73,8 +73,10 @@ class UserController {
       return response.status(400).json({ error: 'This e-mail is already in use' });
     }
 
+    const passwordHash = await bcrypt.hash(password, 12);
+
     const user = await UsersRepository.update(id, {
-      name, email, password, state, city,
+      name, email, passwordHash, state, city,
     });
 
     response.json(user);
