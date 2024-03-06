@@ -1,7 +1,6 @@
 const db = require('../../database');
 
 class DogsRepository {
-  // eslint-disable-next-line class-methods-use-this
   async create(
     idUser,
     name,
@@ -20,6 +19,11 @@ class DogsRepository {
     );
     return row;
   }
+
+	async findByUserId(userId) {
+		const [row] = await db.query('SELECT id FROM dogs WHERE user_id = $1', [userId]);
+    return row;
+	}
 }
 
 module.exports = new DogsRepository();
