@@ -22,5 +22,7 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+		'class-methods-use-this': off,
+		'indent': off,
   },
 };
