@@ -22,13 +22,15 @@ class PostController {
 			return response.status(404).json({ error: "User not found" });
 		}
 
+		const { city: city, state: state } = user;
+
 		const dog = await DogsRepository.findByUserId(user.id);
 
 		if (!dog) {
 			return response.status(404).json({ error: "Dog not found" });
 		}
 
-		const dogId = dog.id;
+		const { id: dogId, name: dogName, gender: dogGender, breed: dogBreed, picture: dogPicture } = dog;
 
 		const date = new Date().toISOString();
 		const created_at = date;
@@ -36,7 +38,13 @@ class PostController {
 
 		const post = await PostsRepository.create(
 			userId,
+			city,
+			state,
 			dogId,
+			dogName,
+			dogGender,
+			dogBreed,
+			dogPicture,
 			content,
 			image,
 			created_at,
