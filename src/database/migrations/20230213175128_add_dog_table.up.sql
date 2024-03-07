@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS dogs (
   gender VARCHAR NOT NULL,
   breed VARCHAR NOT NULL,
   age INTEGER NOT NULL,
-  description VARCHAR
+  description VARCHAR,
+	picture VARCHAR
 );
 
