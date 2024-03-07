@@ -10,18 +10,24 @@ class PostsRepository {
 
 	async create(
 		userId,
+		city,
+		state,
 		dogId,
+		dogName,
+		dogGender,
+		dogBreed,
+		dogPicture,
 		content,
 		image,
 		createdAt,
-		updatedAt,
+		updatedAt
 	) {
 		const [row] = await db.query(`
-			INSERT INTO posts(user_id, dog_id, content, image, created_at, updated_at)
-			VALUES($1, $2, $3, $4, $5, $6)
+			INSERT INTO posts(user_id, city, state, dog_id, dog_name, dog_gender, dog_breed, dog_picture, content, image, created_at, updated_at)
+			VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
 			RETURNING *
 		`,
-		[userId, dogId, content, image, createdAt, updatedAt]
+		[userId, city, state, dogId, dogName, dogGender, dogBreed, dogPicture, content, image, createdAt, updatedAt]
 		);
 		return row;
 	}
