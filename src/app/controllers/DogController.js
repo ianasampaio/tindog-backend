@@ -5,13 +5,16 @@ const UsersRepository = require('../repositories/UsersRepository');
 
 class DogController {
   async store(request, response) {
-    const {
-      user_id, name, gender, breed, age, description,
-    } = request.body;
+		const { userId } = request;
+		const user = await UsersRepository.findById(userId);
 
-    if (!user_id) {
-      return response.status(400).json({ error: 'User ID is required' });
+		if (!user) {
+			return response.status(404).json({ error: 'User not found' });
     }
+		
+		const {
+			name, gender, breed, age, description, picture
+		} = request.body;
 
     if (!name) {
       return response.status(400).json({ error: 'Name is required' });
@@ -26,18 +29,14 @@ class DogController {
       return response.status(400).json({ error: 'Age is required' });
     }
 
-    const user = await UsersRepository.findById(user_id);
-    if (!user) {
-      return response.status(404).json({ error: 'User not found' });
-    }
-
     const dog = await DogsRepository.create(
-      user_id,
+      userId,
       name,
       gender,
       breed,
       age,
       description,
+			picture
     );
 
     response.json(dog);

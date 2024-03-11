@@ -1,12 +1,11 @@
 const { request, response } = require('express');
-const UsersRepository = require('../repositories/UsersRepository');
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
+const UsersRepository = require('../repositories/UsersRepository');
 
 class AuthenticationController {
-
 	async signup(request, response) {
-		const {name, email, password, confirm_password, state, city} = request.body;
+		const { name, email, password, confirm_password, state, city } = request.body;
 
 		if (!name) {
       return response.status(400).json({error: 'Name is required'});
@@ -53,7 +52,7 @@ class AuthenticationController {
 			return response.status(400).json({error: 'Invalid credentials'});
 		}
 
-		const accessToken = process.env.ACCESS_TOKEN_SECRET;
+		const accessToken = process.env.ACCESS_TOKEN_SECRET;	
 		const expiresIn = process.env.EXPIRE;
 		const token = jwt.sign({
 			id: user.id,
