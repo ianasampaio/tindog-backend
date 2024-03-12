@@ -1,7 +1,7 @@
 const { request, response } = require('express');
-const bcrypt = require('bcrypt');
 const DogsRepository = require('../repositories/DogsRepository');
 const UsersRepository = require('../repositories/UsersRepository');
+const PostsRepository = require('../repositories/PostsRepository');
 
 class DogController {
   async store(request, response) {
@@ -11,7 +11,7 @@ class DogController {
 		if (!user) {
 			return response.status(404).json({ error: 'User not found' });
     }
-		
+
 		const {
 			name, gender, breed, age, description, picture
 		} = request.body;
@@ -41,6 +41,21 @@ class DogController {
 
     response.json(dog);
   }
+
+	async show(request, response) {
+    const { id } = request.params;
+		const dog = await DogsRepository.findById(id);
+
+		if (!dog) {
+      return response.status(404).json({ error: 'Dog not found' });
+    }
+
+		const posts = await PostsRepository.findByDogId(id);
+		//
+		dog.posts = posts
+
+		response.json(dog);
+	}
 }
 
 module.exports = new DogController();
