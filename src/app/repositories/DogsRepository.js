@@ -10,14 +10,16 @@ class DogsRepository {
     age,
     description,
 		picture,
+		state,
+		city
   ) {
     const [row] = await db.query(
       `
-      INSERT INTO dogs(user_id,name, gender, breed, age, description, picture)
-      VALUES($1, $2, $3, $4, $5, $6, $7)
+      INSERT INTO dogs(user_id,name, gender, breed, age, description, picture, state, city)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
       RETURNING *
     `,
-      [idUser, name, gender, breed, age, description, picture],
+      [idUser, name, gender, breed, age, description, picture, state , city],
     );
     return row;
   }
@@ -29,7 +31,7 @@ class DogsRepository {
 
 	async findById(id) {
 		const [row] = await db.query(`
-			SELECT name, gender, breed, age, description, picture FROM dogs
+			SELECT name, gender, breed, age, description, picture, state, city FROM dogs
 			WHERE id = $1
 		`, [id]);
 		return row;

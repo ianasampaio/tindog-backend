@@ -13,7 +13,7 @@ class DogController {
     }
 
 		const {
-			name, gender, breed, age, description, picture
+			name, gender, breed, age, description, picture, state, city
 		} = request.body;
 
     if (!name) {
@@ -28,6 +28,12 @@ class DogController {
     if (!age) {
       return response.status(400).json({ error: 'Age is required' });
     }
+		if (!state) {
+      return response.status(400).json({ error: 'State is required' });
+    }
+		if (!city) {
+      return response.status(400).json({ error: 'City is required' });
+    }
 
     const dog = await DogsRepository.create(
       userId,
@@ -36,7 +42,9 @@ class DogController {
       breed,
       age,
       description,
-			picture
+			picture,
+			state,
+			city
     );
 
     response.json(dog);
