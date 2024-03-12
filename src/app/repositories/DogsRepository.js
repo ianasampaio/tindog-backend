@@ -1,4 +1,5 @@
 const db = require('../../database');
+const { findById } = require('./UsersRepository');
 
 class DogsRepository {
   async create(
@@ -24,6 +25,14 @@ class DogsRepository {
 	async findByUserId(userId) {
 		const [row] = await db.query('SELECT * FROM dogs WHERE user_id = $1', [userId]);
     return row;
+	}
+
+	async findById(id) {
+		const [row] = await db.query(`
+			SELECT name, gender, breed, age, description, picture FROM dogs
+			WHERE id = $1
+		`, [id]);
+		return row;
 	}
 }
 
