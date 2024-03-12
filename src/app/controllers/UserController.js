@@ -48,7 +48,7 @@ class UserController {
   async update(request, response) {
     const { id } = request.params;
     const {
-      name, email, password, state, city,
+      name, email, password
     } = request.body;
 
     const UserExists = await UsersRepository.findById(id);
@@ -77,7 +77,7 @@ class UserController {
     const passwordHash = await bcrypt.hash(password, 12);
 
     const user = await UsersRepository.update(id, {
-      name, email, passwordHash, state, city,
+      name, email, passwordHash
     });
 
     response.json(user);

@@ -9,7 +9,7 @@ class UsersRepository {
   }
 
   async findById(id) {
-    const [row] = await db.query('SELECT id, name, email, state, city FROM users WHERE id = $1', [id]);
+    const [row] = await db.query('SELECT id, name, email FROM users WHERE id = $1', [id]);
     return row;
   }
 
@@ -31,14 +31,13 @@ class UsersRepository {
   }
 
   async update(id, {
-    name, email, passwordHash, state, city,
+    name, email, passwordHash
   }) {
     const [row] = await db.query(`
       UPDATE users
-      SET name = $2, email = $3, password = $4, state = $5, city = $6
-      WHERE id = $1
+      SET name = $2, email = $3, password = $4
       RETURNING *
-    `, [id, name, email, passwordHash, state, city]);
+    `, [id, name, email, passwordHash]);
     return row;
   }
 
