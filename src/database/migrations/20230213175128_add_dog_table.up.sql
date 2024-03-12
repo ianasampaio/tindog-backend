@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS dogs (
   breed VARCHAR NOT NULL,
   age INTEGER NOT NULL,
   description VARCHAR,
-	picture VARCHAR
+	picture VARCHAR,
+	state VARCHAR NOT NULL,
+  city VARCHAR NOT NULL
 );
 
